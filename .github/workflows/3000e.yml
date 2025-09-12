@@ -1,4 +1,4 @@
-name: umi uax3000e
+name: umi-uax3000e
 
 on:
   repository_dispatch:
