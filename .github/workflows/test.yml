@@ -1,0 +1,87 @@
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+#
+# File: .github/workflows/openwrt-bulder.yml
+# Description: Build OpenWrt using GitHub Actions
+#
+# Copyright (c) 2019-2024 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+
+name: mtk-uax3000e
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    
+env:
+  REPO_URL: https://github.com/padavanonly/immortalwrt-mt798x-6.6
+  #REPO_URL: https://github.com/dailook/immortalwrt-mt798x-6.6
+  #REPO_URL: https://github.com/sagehou/immortalwrt-mt798x-6.6
+  REPO_BRANCH: openwrt-24.10-6.6
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: uax3000e.config
+  DIY_P1_SH: diy-part1.sh
+  DIY_P2_SH: diy-part2.sh
+  UPLOAD_BIN_DIR: true
+  UPLOAD_FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  UPLOAD_RELEASE: true
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout 检查项目分支
+      uses: actions/checkout@main
+
+    - name: Initialization environment 初始化编译环境
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+        sudo docker image prune --all --force
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev libtool libyaml-dev libz-dev lld llvm lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip python3-ply python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev zstd        
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: Free up disk space on Runner
+      run: |
+        echo "==> Initial disk space:"
+        df -hT
+          
+        echo "==> Removing large pre-installed tools..."
+        # 移除 .NET Core SDKs
+        sudo rm -rf /usr/share/dotnet
+        # 移除 Haskell (GHC)
+        sudo rm -rf /opt/ghc
+        # 移除 Android SDKs 和 NDK
+        sudo rm -rf /usr/local/lib/android
+        # 移除 CodeQL (代码分析工具)
+        sudo rm -rf /opt/hostedtoolcache/CodeQL
+        # 移除 Swift
+        sudo rm -rf /usr/share/swift
+        # 移除大型的 C++ 库 Boost
+        sudo rm -rf "/usr/local/share/boost"
+        # 移除 Actions Runner 的工具缓存
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          
+        echo "==> Cleaning up APT cache..."
+        # 清理 apt 缓存
+        sudo apt-get clean
+          
+        echo "==> Pruning Docker images..."
+        # 删除预装的 Docker 镜像
+        sudo docker image prune --all --force
+          
+        echo "==> Final disk space:"
+        df -hT
