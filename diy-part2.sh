@@ -15,6 +15,6 @@ sudo apt install libfuse-dev
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
-#cp "$GITHUB_WORKSPACE"/QModem/qmodem-next.css feeds/qmodem/luci/luci-app-qmodem-next/htdocs/luci-static/resources/qmodem/qmodem-next.css
-#cp "$GITHUB_WORKSPACE"/QModem/overview.js feeds/qmodem/luci/luci-app-qmodem-next/htdocs/luci-static/resources/view/qmodem/overview.js
-#cp "$GITHUB_WORKSPACE"/QModem/quectel.sh feeds/qmodem/application/qmodem/files/usr/share/qmodem/vendor/quectel.sh
+cp "$GITHUB_WORKSPACE"/QModem/qmodem-next.css feeds/qmodem/luci/luci-app-qmodem-next/htdocs/luci-static/resources/qmodem/qmodem-next.css
+cp "$GITHUB_WORKSPACE"/QModem/overview.js feeds/qmodem/luci/luci-app-qmodem-next/htdocs/luci-static/resources/view/qmodem/overview.js
+cp "$GITHUB_WORKSPACE"/QModem/quectel.sh feeds/qmodem/application/qmodem/files/usr/share/qmodem/vendor/quectel.sh
