@@ -97,7 +97,7 @@ jobs:
       run: cd openwrt && ./scripts/feeds update -a
            
     - name: Install feeds 安装软件源
-      run: cd openwrt && ./scripts/feeds install -a
+      run: cd openwrt && ./scripts/feeds install -a &&  ./scripts/feeds install -a -f -p qmodem
 
     - name: Load custom feeds 加载自定义软件
       run: |
