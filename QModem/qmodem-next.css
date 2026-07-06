@@ -1,0 +1,414 @@
+/* qmodem-next.css - 极简小米系统信息流风格样式表 */
+
+:root {
+    --mx-bg: #f4f4f7;
+    --mx-card-bg: #ffffff;
+    --mx-primary: #0076ff;
+    --mx-text-title: #000000;
+    --mx-text-body: #1c1c1e;
+    --mx-text-sub: #86868b;
+    --mx-radius-big: 24px;
+    --mx-radius-small: 14px;
+}
+
+/* 夜间模式支持 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --mx-bg: #1c1c1e;
+        --mx-card-bg: #2c2c2e;
+        --mx-primary: #0a84ff;
+        --mx-text-title: #ffffff;
+        --mx-text-body: #f2f2f7;
+        --mx-text-sub: #8e8e93;
+    }
+    
+    /* 夜间模式下的特定颜色调整 */
+    .badge-success { background: #223d2a !important; color: #30d158 !important; }
+    .badge-error { background: #461e27 !important; color: #ff453a !important; }
+    .badge-primary { background: #223847 !important; color: #0a84ff !important; }
+    .badge-operator {
+        background: linear-gradient(135deg, #2a3b4d, #1e2c3d) !important;
+        color: #0a84ff !important;
+        border: 1px solid rgba(10, 132, 255, 0.2) !important;
+        box-shadow: 0 2px 8px rgba(10, 132, 255, 0.1);
+    }
+    .miuix-code-text {
+        background: #2a3b4d !important;
+        color: #0a84ff !important;
+        border: 1px solid rgba(10, 132, 255, 0.2) !important;
+    }
+    .miuix-progress-track { background: #424245 !important; }
+    .miuix-native-select {
+        background: #3a3a3c !important;
+        border: 1px solid #424245 !important;
+        color: #f2f2f7;
+    }
+    .miuix-err {
+        background: #461e27;
+        color: #ff453a;
+    }
+    .miuix-card {
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
+    }
+}
+
+/* 全局底层背景与排版 */
+.miuix-app-layout {
+    background-color: var(--mx-bg) !important;
+    padding: 16px !important;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+}
+
+/* 卡片容器 */
+.miuix-card {
+    background: var(--mx-card-bg) !important;
+    border-radius: var(--mx-radius-big) !important;
+    padding: 24px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.015) !important;
+    border: none !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 顶部交互表头 */
+.miuix-card-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-bottom: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+.miuix-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 彩色图标前缀装饰 */
+.miuix-card-icon-prefix {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-size: 60% !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+.bg-blue { background-color: #e8f3ff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230076ff'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E"); }
+.bg-green { background-color: #e8f7ec; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2311b13b'%3E%3Cpath d='M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 7h6v2H9V7zm8 11H7v-2h10v2zm0-4H7v-2h10v2z'/%3E%3C/svg%3E"); }
+.bg-orange { background-color: #fff3e0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9100'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86z'/%3E%3C/svg%3E"); }
+.bg-purple { background-color: #f3e5f5; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ab47bc'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86z'/%3E%3C/svg%3E"); }
+
+/* 夜间模式图标适配 */
+@media (prefers-color-scheme: dark) {
+    .bg-blue { background-color: #223847; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230a84ff'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E"); }
+    .bg-green { background-color: #223d2a; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2330d158'%3E%3Cpath d='M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 7h6v2H9V7zm8 11H7v-2h10v2zm0-4H7v-2h10v2z'/%3E%3C/svg%3E"); }
+    .bg-orange { background-color: #462c1f; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9f0a'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86z'/%3E%3C/svg%3E"); }
+    .bg-purple { background-color: #3d2f47; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23bf5af2'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86z'/%3E%3C/svg%3E"); }
+}
+
+.miuix-card-title-text {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: var(--mx-text-title) !important;
+    letter-spacing: -0.4px;
+}
+
+.miuix-card-arrow {
+    font-size: 13px;
+    color: var(--mx-text-sub);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: rotate(90deg);
+}
+.miuix-card.collapsed .miuix-card-arrow {
+    transform: rotate(0deg);
+}
+.miuix-card.collapsed .miuix-grid-container {
+    display: none !important;
+}
+
+/* 核心两列瀑布布局 */
+.miuix-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    row-gap: 20px !important;
+    column-gap: 24px !important;
+}
+
+.miuix-grid-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.miuix-grid-label {
+    color: var(--mx-text-sub) !important;
+    font-size: 13.5px !important;
+    margin-bottom: 5px !important;
+}
+
+.miuix-grid-value {
+    color: var(--mx-text-body) !important;
+    font-size: 16.5px !important;
+    font-weight: 550 !important;
+    line-height: 1.35;
+    word-break: break-all;
+}
+
+/* 信号线性沉浸进度条 */
+.miuix-progress-track {
+    background: #e5e5ea !important;
+    height: 4px !important;
+    border-radius: 2px !important;
+    width: 90% !important;
+    overflow: hidden;
+    margin-top: 6px;
+}
+.miuix-progress-bar {
+    background: var(--mx-primary) !important;
+    height: 100% !important;
+}
+
+/* 高级 MIUIX 状态标签 */
+.miuix-badge {
+    padding: 3px 10px !important;
+    border-radius: var(--mx-radius-small) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    display: inline-block;
+}
+.badge-success { background: #e8f7ec !important; color: #11b13b !important; }
+.badge-error { background: #fdebee !important; color: #ea3546 !important; }
+.badge-primary { background: #e8f3ff !important; color: #2f80ed !important; }
+
+/* 专门针对三大运营商汉化设计的柔和高亮卡片徽章 */
+.badge-operator {
+    background: linear-gradient(135deg, #f0f7ff, #e1f0ff) !important;
+    color: #0076ff !important;
+    font-weight: 650 !important;
+    border: 1px solid rgba(0, 118, 255, 0.15) !important;
+    box-shadow: 0 2px 8px rgba(0, 118, 255, 0.05);
+}
+
+/* 专门针对 ICCID / IMSI 这类长数字串定制的代码等宽样式 */
+.miuix-code-text {
+    font-family: "SF Mono", "Courier New", Consolas, monospace !important;
+    font-size: 14.5px !important;
+    color: #0076ff !important;
+    background: #f0f7ff !important;
+    padding: 4px 10px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(0, 118, 255, 0.08) !important;
+    letter-spacing: 0.3px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* 夜间模式代码文本样式 */
+@media (prefers-color-scheme: dark) {
+    .miuix-code-text {
+        font-family: "SF Mono", "Courier New", Consolas, monospace !important;
+        font-size: 14.5px !important;
+        color: #0a84ff !important;
+        background: #2a3b4d !important;
+        padding: 4px 10px !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(10, 132, 255, 0.2) !important;
+        letter-spacing: 0.3px;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+/* 顶部选择器 */
+.miuix-native-select {
+    border: 1px solid #e5e5ea !important;
+    background: #f4f4f7 !important;
+    padding: 8px 12px !important;
+    border-radius: 12px !important;
+    font-size: 15px;
+    outline: none;
+    width: 100%;
+    color: var(--mx-text-body);
+}
+
+/* 夜间模式选择器样式 */
+@media (prefers-color-scheme: dark) {
+    .miuix-native-select {
+        border: 1px solid #424245 !important;
+        background: #3a3a3c !important;
+        color: #f2f2f7;
+    }
+    
+    /* 修复选择器选项的夜间模式 */
+    select option {
+        background-color: #3a3a3c !important;
+        color: #f2f2f7 !important;
+    }
+}
+
+.miuix-time-log { 
+    text-align: right; 
+    font-size: 12px; 
+    color: var(--mx-text-sub); 
+    margin-bottom: 8px; 
+}
+
+.miuix-footer-copyright { 
+    text-align: center; 
+    font-size: 11px; 
+    color: var(--mx-text-sub); 
+    padding: 40px 0 10px 0; 
+}
+
+/* 加载动画 */
+.miuix-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.miuix-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 118, 255, 0.1);
+    border-top: 4px solid var(--mx-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 夜间模式加载动画 */
+@media (prefers-color-scheme: dark) {
+    .miuix-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(10, 132, 255, 0.1);
+        border-top: 4px solid var(--mx-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 16px;
+    }
+}
+
+/* 错误提示 */
+.miuix-err {
+    background: #fdebee;
+    color: #ea3546;
+    padding: 16px;
+    border-radius: var(--mx-radius-small);
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 夜间模式错误提示 */
+@media (prefers-color-scheme: dark) {
+    .miuix-err {
+        background: #461e27;
+        color: #ff453a;
+    }
+}
+
+/* 选择器卡片 */
+.selector-card {
+    margin-bottom: 16px !important;
+}
+
+.font-bold {
+    font-weight: 600 !important;
+}
+
+/* 拖拽效果 */
+.miuix-card.dragging {
+    opacity: 0.6;
+    z-index: 1000;
+}
+
+.miuix-card.drag-over {
+    box-shadow: 0 0 0 2px var(--mx-primary) !important;
+}
+
+/* 敏感信息默认隐藏样式（小圆点遮罩） */
+.miuix-code-text.miuix-secure-hide {
+    -webkit-text-security: disc !important; /* 将文字变成类似密码输入框的小圆点 */
+    text-security: disc !important;
+    opacity: 0.65;                          /* 隐藏时微微透明，看起来更有安全感 */
+    letter-spacing: 2px !important;         /* 调整圆点间距，防止圆点太密 */
+    user-select: none;                      /* 隐藏状态下禁止直接复制，防止误操作 */
+}
+
+/* 鼠标悬停明文或密文时的微互动效果 */
+.miuix-code-text:hover {
+    filter: brightness(0.9);
+    transition: all 0.2s ease;
+} 
+
+/* 夜间模式敏感信息样式 */
+@media (prefers-color-scheme: dark) {
+    .miuix-code-text.miuix-secure-hide {
+        -webkit-text-security: disc !important;
+        text-security: disc !important;
+        opacity: 0.65;
+        letter-spacing: 2px !important;
+        user-select: none;
+    }
+}
+
+.qos-rate-value {
+    color: #ff2d55 !important; /* 使用醒目的活力红 */
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.35;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px !important; /* 让高亮色框拥有舒适的内边距 */
+    border-radius: 12px !important; /* 调整为更精致的小圆角边框 */
+    margin-top: 4px;
+    box-sizing: border-box;
+}
+
+/* 依据类名，动态挂载不同的流向箭头 */
+.qos-rate-value.qos-dl::before {
+    content: "↓ ";
+    font-size: 15px;
+    font-weight: 700;
+    margin-right: 4px;
+}
+.qos-rate-value.qos-ul::before {
+    content: "↑ ";
+    font-size: 15px;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+/* 日间模式独立气泡背景 (排除标题) */
+@media (prefers-color-scheme: light) {
+    .qos-rate-value {
+        background: radial-gradient(circle at 15% 50%, rgba(255, 45, 85, 0.05), transparent 85%) !important;
+        border: 1px solid rgba(255, 45, 85, 0.08) !important;
+    }
+    .qos-rate-value.qos-dl::before, .qos-rate-value.qos-ul::before {
+        color: #ff9500; /* 日间模式下箭头使用显眼的橙色 */
+    }
+}
+
+/* 夜间模式独立气泡背景 */
+@media (prefers-color-scheme: dark) {
+    .qos-rate-value {
+        color: #ff375f !important; /* 夜间模式使用稍亮一点的粉红 */
+        background: radial-gradient(circle at 15% 50%, rgba(255, 55, 95, 0.1), transparent 85%) !important;
+        border: 1px solid rgba(255, 55, 95, 0.15) !important;
+    }
+    .qos-rate-value.qos-dl::before, .qos-rate-value.qos-ul::before {
+        color: #ff9f0a; /* 夜间模式下箭头使用亮橙色 */
+    }
+}
