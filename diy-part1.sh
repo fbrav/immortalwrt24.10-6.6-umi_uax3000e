@@ -20,4 +20,4 @@
 #git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
 git clone https://github.com/EasyTier/luci-app-easytier.git package/easytier
 git clone https://github.com/fbrav530/luci-app-generic-runner.git package/runner
-echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
+#echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
